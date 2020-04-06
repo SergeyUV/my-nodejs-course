@@ -53,7 +53,7 @@ const deleteById = async id => {
 //= ===============================
 const createUser = async data => {
   let result;
-  newUser = new User(data);
+  const newUser = new User(data);
   usersStore.push(newUser);
 
   result = {
