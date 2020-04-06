@@ -17,6 +17,37 @@ class User {
     const { id, name, login } = user;
     return { id, name, login };
   }
+
+  static checkUser(data){
+    
+    let result;
+    
+    let { name, login, password,  ...rest } = data;
+    
+    if( ! name || ! login || ! password){
+      result = {
+        status: false,
+        message: "Data incomplete error"
+      };
+      return result;
+    }  
+    
+    //if( Object.keys(rest).length > 0 ){
+    //  result = {
+    //    status: false,
+    //    message: "Data error"
+    //  };
+    //  return result;
+    //}
+    
+    result = {
+      status: true,
+      message: "Check OK"
+    };
+
+    return result;
+  }
+
 }
 
 module.exports = User;
