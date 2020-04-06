@@ -1,9 +1,6 @@
 const Board = require('./board.model');
 
-const boardsStore = [
-  new Board()
-];
-
+const boardsStore = [new Board()];
 
 //= ===============================
 // getAll
@@ -76,12 +73,12 @@ const updateBoard = async (id, board) => {
       message: 'Board not found !'
     };
   } else {
-    boardsStore[index].name = board.title;
+    boardsStore[index].title = board.title;
     boardsStore[index].columns = board.columns;
     result = {
       status: true,
       board: boardsStore[index],
-      message: 'Update board successfuly !'
+      message: 'Update board successfully !'
     };
   }
   return result;

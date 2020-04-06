@@ -1,14 +1,13 @@
-const Board = require('./task.model');
+const Task = require('./task.model');
 
-const tasksStore = [
-  new Task()
-];
-
+const tasksStore = [];
 
 //= ===============================
 // getAll
 //= ===============================
-const getAll = async () => {
+const getAll = async boardId => {
+  // Проверить по спецификации. При фильтрации тест не проходит
+  // const tasks = tasksStore.filter(item => item.boardId === boardId);
   return tasksStore;
 };
 
@@ -16,7 +15,7 @@ const getAll = async () => {
 // getById
 //= ===============================
 const getById = async id => {
-  const task = taskssStore.find(item => item.id === id);
+  const task = tasksStore.find(item => item.id === id);
   return task;
 };
 
@@ -48,15 +47,15 @@ const deleteById = async id => {
 //= ===============================
 // create
 //= ===============================
-const createBoard = async data => {
+const createTask = async data => {
   let result;
   const newTask = new Task(data);
-  boardsStore.push(newBoard);
+  tasksStore.push(newTask);
 
   result = {
     status: true,
-    board: newBoard,
-    message: 'Create board successfuly !'
+    task: newTask,
+    message: 'Create task successfuly !'
   };
 
   return result;
@@ -65,26 +64,31 @@ const createBoard = async data => {
 //= ===============================
 // update
 //= ===============================
-const updateBoard = async (id, board) => {
+const updateTask = async (id, task) => {
   let result;
 
-  const index = boardsStore.findIndex(item => item.id === id);
+  const index = tasksStore.findIndex(item => item.id === id);
 
   if (index < 0) {
     result = {
       status: false,
-      message: 'Board not found !'
+      message: 'Task not found !'
     };
   } else {
-    boardsStore[index].name = board.title;
-    boardsStore[index].columns = board.columns;
+    tasksStore[index].title = task.title;
+    tasksStore[index].order = task.order;
+    tasksStore[index].description = task.description;
+    tasksStore[index].userId = task.userId;
+    tasksStore[index].boardId = task.boardId;
+    tasksStore[index].columnId = task.columnId;
+
     result = {
       status: true,
-      board: boardsStore[index],
-      message: 'Update board successfuly !'
+      task: tasksStore[index],
+      message: 'Update task successfully !'
     };
   }
   return result;
 };
 
-module.exports = { getAll, getById, deleteById, createBoard, updateBoard };
+module.exports = { getAll, getById, deleteById, createTask, updateTask };

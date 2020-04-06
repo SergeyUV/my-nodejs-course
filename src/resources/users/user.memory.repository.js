@@ -41,7 +41,7 @@ const deleteById = async id => {
 
     result = {
       status: true,
-      message: 'Delete user successfuly !'
+      message: 'Delete user successfully !'
     };
   }
 

@@ -1,14 +1,14 @@
 const router = require('express').Router();
-const User = require('./user.model');
-const usersService = require('./user.service');
+const Board = require('./board.model');
+const boardsService = require('./board.service');
 
 //= ===========
 // GET
 //= ===========
 router.route('/').get(async (req, res) => {
-  const users = await usersService.getAll();
-  // map user fields to exclude secret fields like "password"
-  res.json(users.map(User.toResponse));
+  const boards = await boardsService.getAll();
+  // map board fields
+  res.json(boards.map(Board.toResponse));
 });
 
 //= ===========
@@ -16,12 +16,12 @@ router.route('/').get(async (req, res) => {
 //= ===========
 
 router.route('/:id').get(async (req, res) => {
-  const user = await usersService.getById(req.params.id);
-  if (!user) {
+  const board = await boardsService.getById(req.params.id);
+  if (!board) {
     res.status(404);
     res.json([{}]);
   } else {
-    res.json(User.toResponse(user));
+    res.json(Board.toResponse(board));
   }
 });
 
@@ -29,7 +29,7 @@ router.route('/:id').get(async (req, res) => {
 // DELETE
 //= ===========
 router.route('/:id').delete(async (req, res) => {
-  const result = await usersService.deleteById(req.params.id);
+  const result = await boardsService.deleteById(req.params.id);
 
   if (!result.status) {
     res.status(204);
@@ -43,7 +43,7 @@ router.route('/:id').delete(async (req, res) => {
 //= ===========
 router.route('/').post(
   async (req, res, next) => {
-    const result = User.checkUser(req.body);
+    const result = Board.checkBoard(req.body);
 
     if (!result.status) {
       res.status(400);
@@ -53,11 +53,11 @@ router.route('/').post(
     }
   },
   async (req, res) => {
-    const result = await usersService.createUser(req.body);
+    const result = await boardsService.createBoard(req.body);
     if (!result.status) {
       res.status(500);
     }
-    res.json(User.toResponse(result.user));
+    res.json(Board.toResponse(result.board));
   }
 );
 
@@ -66,7 +66,7 @@ router.route('/').post(
 //= ===========
 router.route('/:id').put(
   async (req, res, next) => {
-    const result = User.checkUser(req.body);
+    const result = Board.checkBoard(req.body);
 
     if (!result.status) {
       res.status(400);
@@ -76,12 +76,12 @@ router.route('/:id').put(
     }
   },
   async (req, res) => {
-    const result = await usersService.updateUser(req.params.id, req.body);
+    const result = await boardsService.updateBoard(req.params.id, req.body);
 
     if (!result.status) {
       res.status(404);
     }
-    res.json(User.toResponse(result.user));
+    res.json(Board.toResponse(result.board));
   }
 );
 
