@@ -94,6 +94,9 @@ const updateTask = async (id, task) => {
   return result;
 };
 
+//= ===============================
+// unassign
+//= ===============================
 const unassignByUserId = async userId => {
   
   let result;
@@ -111,4 +114,25 @@ const unassignByUserId = async userId => {
 
 };
 
-module.exports = { getAll, getById, deleteById, createTask, updateTask, unassignByUserId };
+//= ===============================
+// delete by board id
+//= ===============================
+const deleteByBoardId = async boardId => {
+  
+  let result;
+  
+  let index = tasksStore.findIndex(item => item.boardId === boardId);
+
+  while (index >=0) {
+    tasksStore.splice(index, 1);
+    index = tasksStore.findIndex(item => item.boardId === boardId);  
+  }
+
+  result = {
+    status: true,
+    message: 'Delete task(s) successfuly !'
+  };
+
+};
+
+module.exports = { getAll, getById, deleteById, createTask, updateTask, unassignByUserId, deleteByBoardId };
