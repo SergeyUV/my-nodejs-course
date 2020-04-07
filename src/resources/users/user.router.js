@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const User = require('./user.model');
 const usersService = require('./user.service');
+const tasksService = require('../tasks/task.service');
 
 //= ===========
 // GET
@@ -29,13 +30,18 @@ router.route('/:id').get(async (req, res) => {
 // DELETE
 //= ===========
 router.route('/:id').delete(async (req, res) => {
-  const result = await usersService.deleteById(req.params.id);
+  let result = await usersService.deleteById(req.params.id);
 
   if (!result.status) {
     res.status(204);
+    res.send(result.message);
+    return;
   }
-
-  res.send(result.message);
+  else{
+    result = await tasksService.unassignByUserId(req.params.id);
+    res.send("OK!");
+  }
+  
 });
 
 //= ===========

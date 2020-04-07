@@ -49,8 +49,7 @@ const deleteById = async id => {
 //= ===============================
 const createTask = async (boardId, data) => {
   let result;
-  // console.log(data);
-  // console.log(boardId);
+
   const newTask = new Task(data);
   newTask.boardId = boardId;
 
@@ -95,4 +94,21 @@ const updateTask = async (id, task) => {
   return result;
 };
 
-module.exports = { getAll, getById, deleteById, createTask, updateTask };
+const unassignByUserId = async userId => {
+  
+  let result;
+  
+  for (let item of tasksStore) {
+    if(item.userId === userId){
+      item.userId = null;
+    }
+  }
+
+  result = {
+    status: true,
+    message: 'Unassign task successfuly !'
+  };
+
+};
+
+module.exports = { getAll, getById, deleteById, createTask, updateTask, unassignByUserId };
