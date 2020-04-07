@@ -6,7 +6,7 @@ const tasksService = require('./task.service');
 // GET
 //= ===========
 router.route('/').get(async (req, res) => {
-  const tasks = await tasksService.getAll(router.boardId);
+  const tasks = await tasksService.getAll(req.boardId);
   // map task fields
   res.json(tasks.map(Task.toResponse));
 });
@@ -54,7 +54,9 @@ router.route('/').post(
     }
   },
   async (req, res) => {
-    const result = await tasksService.createTask(req.body);
+    
+    const result = await tasksService.createTask(req.boardId, req.body);
+
     if (!result.status) {
       res.status(500);
     }

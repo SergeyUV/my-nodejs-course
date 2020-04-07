@@ -47,9 +47,13 @@ const deleteById = async id => {
 //= ===============================
 // create
 //= ===============================
-const createTask = async data => {
+const createTask = async (boardId, data) => {
   let result;
+  // console.log(data);
+  // console.log(boardId);
   const newTask = new Task(data);
+  newTask.boardId = boardId;
+
   tasksStore.push(newTask);
 
   result = {

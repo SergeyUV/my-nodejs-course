@@ -26,7 +26,8 @@ app.use('/boards', boardRouter);
 app.use(
   '/boards/:boardId/tasks',
   (req, res, next) => {
-    taskRouter.boardId = req.params.boardId;
+    // taskRouter.boardId = req.params.boardId;
+    req.boardId = req.params.boardId;
     next();
   },
   taskRouter
