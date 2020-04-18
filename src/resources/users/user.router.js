@@ -16,32 +16,28 @@ router.route('/').get(async (req, res) => {
 // GET by id
 //= ===========
 
-router.route('/:id').get(async (req, res) => {
+router.route('/:id').get(async (req, res, next) => {
   const user = await usersService.getById(req.params.id);
   if (!user) {
-    res.status(404);
-    res.json([{}]);
-  } else {
-    res.json(User.toResponse(user));
+    next({ status: '404', data: [{}] });
+    return;
   }
+  res.json(User.toResponse(user));
 });
 
 //= ===========
 // DELETE
 //= ===========
-router.route('/:id').delete(async (req, res) => {
+router.route('/:id').delete(async (req, res, next) => {
   let result = await usersService.deleteById(req.params.id);
 
   if (!result.status) {
-    res.status(204);
-    res.send(result.message);
+    next({ status: '404', send: result.message });
     return;
   }
-  else{
-    result = await tasksService.unassignByUserId(req.params.id);
-    res.send("OK!");
-  }
-  
+
+  result = await tasksService.unassignByUserId(req.params.id);
+  res.status(204).send('OK!');
 });
 
 //= ===========
