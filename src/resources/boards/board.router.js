@@ -36,11 +36,9 @@ router.route('/:id').delete(async (req, res) => {
     res.status(204);
     res.send(result.message);
     return;
-  }else{
-    result = await tasksService.deleteByBoardId(req.params.id);
-    res.send("OK!");
   }
-
+  result = await tasksService.deleteByBoardId(req.params.id);
+  res.send('OK!');
 });
 
 //= ===========

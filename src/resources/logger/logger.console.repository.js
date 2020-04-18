@@ -1,10 +1,9 @@
-
-const logMessage = (message) => {
-    console.log(message);
+const logMessage = message => {
+  console.log(message);
 };
 
-const logError = (message) => {
-    console.error(message);
+const logError = message => {
+  console.error(message);
 };
 
-module.exports = {logMessage, logError};
+module.exports = { logMessage, logError };

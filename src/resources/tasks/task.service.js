@@ -8,4 +8,12 @@ const updateTask = (id, task) => tasksRepo.updateTask(id, task);
 const unassignByUserId = userId => tasksRepo.unassignByUserId(userId);
 const deleteByBoardId = boardId => tasksRepo.deleteByBoardId(boardId);
 
-module.exports = { getAll, getById, deleteById, createTask, updateTask, unassignByUserId, deleteByBoardId };
+module.exports = {
+  getAll,
+  getById,
+  deleteById,
+  createTask,
+  updateTask,
+  unassignByUserId,
+  deleteByBoardId
+};

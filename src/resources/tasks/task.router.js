@@ -54,7 +54,6 @@ router.route('/').post(
     }
   },
   async (req, res) => {
-    
     const result = await tasksService.createTask(req.boardId, req.body);
 
     if (!result.status) {
